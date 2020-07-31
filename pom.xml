@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.bright-side.bdbexport</groupId>
 	<artifactId>BDbExport</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>BDbExport</name>
 	<description>Java framework to export databases</description>
 

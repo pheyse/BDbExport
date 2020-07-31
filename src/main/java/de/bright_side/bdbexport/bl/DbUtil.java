@@ -296,6 +296,7 @@ public class DbUtil {
 		result.add("datetime");
 		result.add("timestamp");
 		result.add("date");
+		result.add("datetime2");
 		return result;
 	}
 
@@ -322,6 +323,7 @@ public class DbUtil {
 		SortedSet<String> result = new TreeSet<String>();
 		result.add("float");
 		result.add("double");
+		result.add("decimal");
 		return result;
 	}
 

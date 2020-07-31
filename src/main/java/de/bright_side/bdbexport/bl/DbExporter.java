@@ -169,6 +169,5 @@ public class DbExporter {
 	public String bulkExportAsString(BulkExportRequest exportRequest) throws Exception {
 		return bulkExportAsString(exportRequest, new CancelReceiver());
 	}
-	
-	
+
 }

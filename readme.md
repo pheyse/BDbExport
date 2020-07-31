@@ -22,7 +22,7 @@ The current version is < 1.0.0 so not all features are complete and many feature
 	<dependency>
 		<groupId>de.bright-side.bdbexport</groupId>
 		<artifactId>BDBExport</artifactId>
-		<version>0.1.0</version>
+		<version>0.1.1</version>
 	</dependency>
 [...]
 ```
@@ -30,7 +30,7 @@ The current version is < 1.0.0 so not all features are complete and many feature
 ### Including via Gradle
 ```
 dependencies {
-    implementation 'de.bright-side.dbexport:BDBExport:0.1.0'
+    implementation 'de.bright-side.dbexport:BDBExport:0.1.1'
 }
 ```
 
@@ -106,3 +106,5 @@ public class MainController{
 ## Change History
  - Version 0.1.0 (2020-07-20)
     - initial version
+ - Version 0.1.1 (2020-07-31)
+    - smaller bugfix: additional MS SQL Server data types

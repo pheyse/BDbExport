@@ -277,7 +277,7 @@ public class DbExportTables {
 			if (exportRequest.isSortTableData()) {
 				resultSet.close();
 				String sql = "SELECT * FROM " + tableName + generateWhereClauseString(whereClause) + " " + generateOrderByString(sortColumns);
-				DbExportUtil.write(output, "-- SQL: " + sql + "\n");
+				DbExportUtil.write(output, "-- SQL: " + sql.replace("\r", "").replace("\n", " ") + "\n");
 				try {
 					resultSet = statement.executeQuery(sql);
 				} catch (Exception e) {

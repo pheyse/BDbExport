@@ -50,7 +50,7 @@ public class DbExportTableScripts {
 		sb.append("    ) cols (list)\n");
 		sb.append("    CROSS APPLY(\n");
 		sb.append("        SELECT\n");
-		sb.append("            CHAR(10) + 'ALTER TABLE ' + obj.name + '_noident_temp ADD ' + LEFT(alt, LEN(alt)-1) + ';'\n");
+		sb.append("            CHAR(10) + 'ALTER TABLE ' + obj.name + ' ADD ' + LEFT(alt, LEN(alt)-1) + ';'\n");
 		sb.append("        FROM(\n");
 		sb.append("            SELECT\n");
 		sb.append("                CHAR(10)\n");
