@@ -108,3 +108,5 @@ public class MainController{
     - initial version
  - Version 0.1.1 (2020-07-31)
     - smaller bugfix: additional MS SQL Server data types
+ - Version 0.2.0 (2021-12-27)
+   - added support for SQLite
