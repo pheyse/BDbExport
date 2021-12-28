@@ -8,7 +8,7 @@ A java framework to export database data and DDLs - independent of the database 
 The current version is < 1.0.0 so not all features are complete and many features haven't been tested yet. Even in this version it may be very useful for development purposes.
  
 ## Features
- - Database types: H2, MS SQL Server, MySQL, MariaDB
+ - Database types: H2, MS SQL Server, MySQL, MariaDB, SQLite
  - Export types: DDL for tables, DDL for views, table data
  - Where-clause for table data export
  - Filtering by object names
@@ -22,7 +22,7 @@ The current version is < 1.0.0 so not all features are complete and many feature
 	<dependency>
 		<groupId>de.bright-side.bdbexport</groupId>
 		<artifactId>BDBExport</artifactId>
-		<version>0.1.1</version>
+		<version>0.2.0</version>
 	</dependency>
 [...]
 ```
@@ -30,7 +30,7 @@ The current version is < 1.0.0 so not all features are complete and many feature
 ### Including via Gradle
 ```
 dependencies {
-    implementation 'de.bright-side.dbexport:BDBExport:0.1.1'
+    implementation 'de.bright-side.dbexport:BDBExport:0.2.0'
 }
 ```
 

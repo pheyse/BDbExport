@@ -19,7 +19,7 @@ public class DbExporter {
 	public static final Charset CHARSET = Charset.forName("UTF-8");
 	public static final int DEFAULT_CLOB_EXPORT_MAX_LENGTH = 1024;
 	
-	public enum DbType {MS_SQL_SERVER, H2, MY_SQL, MARIA_DB}
+	public enum DbType {MS_SQL_SERVER, H2, MY_SQL, MARIA_DB, SQLITE}
 	public enum ObjectType{TABLE_DDL, TABLE_DATA, VIEW_DDL}
 	
 	/**

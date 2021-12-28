@@ -43,7 +43,7 @@ public class DbExportViews {
 	
 	private SortedSet<String> getViewNamesSortedAlphabetically(Connection connection, CatalogAndSchema catalogAndSchema) throws Exception {
 		DbType dbType = DbUtil.determineDbType(connection);
-		if (in(dbType, DbType.H2, DbType.MY_SQL, DbType.MARIA_DB)) {
+		if (in(dbType, DbType.H2, DbType.MY_SQL, DbType.MARIA_DB, DbType.SQLITE)) {
 			return DbUtil.getDbMetaDataObjectNamesSortedAlphabetically(connection, catalogAndSchema, "VIEW");
 		} else if (dbType == DbType.MS_SQL_SERVER) {
 			return getMsSqlServerViewNamesSortedAlphabetically(connection, catalogAndSchema);
@@ -113,6 +113,8 @@ public class DbExportViews {
 			return createMsSqlServerViewDdl(connection, catalogAndSchema, viewName);
 		} else if (in (dataBaseType, DbType.MY_SQL, DbType.MARIA_DB)){
 			return createMySqlViewDdl(connection, catalogAndSchema, viewName);
+		} else if (dataBaseType == DbType.SQLITE){
+			return createSqliteViewDdl(connection, catalogAndSchema, viewName);
 		} else{
 			throw new Exception("Not implemented for db type " + dataBaseType);
 		}
@@ -126,6 +128,10 @@ public class DbExportViews {
 	private String createMsSqlServerViewDdl(Connection connection, CatalogAndSchema catalogAndSchema, String viewName) throws Exception {
 		List<String> listResult = DbUtil.getStringListQueryResult(connection, "sp_helptext '[" + catalogAndSchema.getCatalog() + "]." + catalogAndSchema.getSchema() + "." + viewName + "'");
 		return DbExportUtil.collectionToString(listResult, "");
+	}
+
+	private String createSqliteViewDdl(Connection connection, CatalogAndSchema catalogAndSchema, String viewName) throws Exception {
+		return DbSqliteUtil.readSqliteDdlForObject(connection, DbSqliteUtil.SM_TYPE_VIEW, viewName);
 	}
 
 	public void exportViewDdl(InternalObjectExportRequest exportRequest, OutputStream outputStream) throws Exception {

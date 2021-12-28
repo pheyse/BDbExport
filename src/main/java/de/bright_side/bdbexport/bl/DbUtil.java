@@ -25,6 +25,7 @@ public class DbUtil {
 	private static final String H2_DATABASE_NAME = "H2";
 	private static final String MS_SQL_SERVER_DATABASE_NAME = "Microsoft SQL Server";
 	private static final String MY_SQL_DATABASE_NAME = "MySQL";
+	private static final String SQLITE_DATABASE_NAME = "SQLite";
 	private static final int POS_OF_DATABASE_NAME_AND_PARAMS_IN_URL = 3;
 	
 	public static List<String> getStringListQueryResult(Connection conn, String sql, String param1) throws Exception {
@@ -306,6 +307,7 @@ public class DbUtil {
 		result.add("varchar");
 		result.add("varchar2");
 		result.add("char");
+		result.add("text");
 		return result;
 	}
 
@@ -316,6 +318,7 @@ public class DbUtil {
 		result.add("bigint");
 		result.add("tinyint");
 		result.add("number");
+		result.add("integer");
 		return result;
 	}
 
@@ -362,7 +365,7 @@ public class DbUtil {
 		if (value == null) {
 			return "NULL";
 		}
-		if ((in(type, DbType.MS_SQL_SERVER, DbType.MY_SQL, DbType.MARIA_DB, DbType.H2))) {
+		if ((in(type, DbType.MS_SQL_SERVER, DbType.MY_SQL, DbType.MARIA_DB, DbType.H2, DbType.SQLITE))) {
 			return "'" + value.replace("'", "''").replace("\r\n", "'+Char(13)+Char(10)+'").replace("\n", "'+Char(10)+'").replace("\r", "'+Char(13)+'").replace("'", "'+Char(39)+'")
 					+ "'";
 		} else
@@ -405,6 +408,8 @@ public class DbUtil {
 			return DbType.MS_SQL_SERVER;
 		case MY_SQL_DATABASE_NAME:
 			return DbType.MY_SQL;
+		case SQLITE_DATABASE_NAME:
+			return DbType.SQLITE;
 		default:
 			throw new Exception("Could not determine the database type from the database product name '" + databaseName + "'");
 		}

@@ -36,7 +36,7 @@ public class DbExportTables {
 
 	private SortedSet<String> getTableNamesSortedAlphabetically(Connection connection, CatalogAndSchema catalogAndSchema) throws Exception {
 		DbType dbType = DbUtil.determineDbType(connection);
-		if (in(dbType, DbType.H2)) {
+		if (in(dbType, DbType.H2, DbType.SQLITE)) {
 			return DbUtil.getDbMetaDataObjectNamesSortedAlphabetically(connection, catalogAndSchema, "TABLE");
 		} else if (dbType == DbType.MS_SQL_SERVER) {
 			return getMsSqlServerTableNamesSortedAlphabetically(connection, catalogAndSchema);
@@ -100,6 +100,8 @@ public class DbExportTables {
 			return getTablesThatThisTableDependsOnMsSqlServer(connection, catalogAndSchema, tableName);
 		} else if (in(dbType, DbType.MY_SQL, DbType.MARIA_DB)) {
 			return getTablesThatThisTableDependsOnMySql(connection, catalogAndSchema, tableName);
+		} else if (in(dbType, DbType.SQLITE)) {
+			return new TreeSet(); //: TODO: implement later
 		} else {
 			throw new Exception("Unknown database type: " + dbType);
 		}
@@ -200,6 +202,9 @@ public class DbExportTables {
 		case MARIA_DB:
 			result = createMySqlOrMariaDbServerTableDdl(exportRequest);
 			break;
+			case SQLITE:
+			result = createSqliteTableDdl(exportRequest);
+			break;
 		default:
 			throw new Exception("Database type not supported for export table DDL: " + exportRequest.getDbType());
 		}
@@ -221,6 +226,12 @@ public class DbExportTables {
 	private String createMySqlOrMariaDbServerTableDdl(InternalObjectExportRequest exportRequest) throws Exception {
 		Connection connection = exportRequest.getConnection();
 		return DbUtil.getStringQueryResultOfColumnWithName(connection, "show create table " + exportRequest.getCatalogAndSchema().getSchema() + "." + exportRequest.getObjectName(), "Create Table");
+	}
+
+	private String createSqliteTableDdl(InternalObjectExportRequest exportRequest) throws Exception {
+		String sql = DbSqliteUtil.readSqliteDdlForObject(exportRequest.getConnection(), DbSqliteUtil.SM_TYPE_TABLE, exportRequest.getObjectName());
+		sql += DbSqliteUtil.readSqliteIndexDdlsForTable(exportRequest.getConnection(), exportRequest.getObjectName());
+		return sql;
 	}
 
 	private String createH2TableDdl(InternalObjectExportRequest exportRequest) throws Exception {
